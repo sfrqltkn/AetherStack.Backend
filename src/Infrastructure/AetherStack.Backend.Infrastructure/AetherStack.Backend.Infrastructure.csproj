@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AetherStack.Backend.Application\AetherStack.Backend.Application.csproj" />
+  </ItemGroup>
+
 </Project>

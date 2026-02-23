@@ -9,6 +9,6 @@
     <Project Path="src/Infrastructure/AetherStack.Backend.Persistence/AetherStack.Backend.Persistence.csproj" />
   </Folder>
   <Folder Name="/src/Presentation/">
-    <Project Path="src/Presentation/AetherStack.Backend.WebAPI/AetherStack.Backend.WebAPI.csproj" />
+    <Project Path="src/Presentation/AetherStack.Backend.WebAPI/AetherStack.Backend.WebAPI.csproj" Id="5d681654-13dd-4904-8f83-610006368cc8" />
   </Folder>
 </Solution>
