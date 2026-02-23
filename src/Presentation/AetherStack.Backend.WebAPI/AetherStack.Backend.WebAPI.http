@@ -1,0 +1,6 @@
+@AetherStack.Backend.WebAPI_HostAddress = http://localhost:5195
+
+GET {{AetherStack.Backend.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
