@@ -15,7 +15,8 @@ namespace AetherStack.Backend.Persistence.Main
                 configuration.GetConnectionString("PostgreSQL");
 
             // Interceptor DI kaydı
-            services.AddScoped<AuditDomainEventInterceptor>();
+            services.AddScoped<AuditTrackableInterceptor>();
+            services.AddScoped<PublishDomainEventsInterceptor>();
 
             services.AddDbContext<MainDbContext>((sp, options) =>
             {
@@ -32,7 +33,8 @@ namespace AetherStack.Backend.Persistence.Main
 
                 // Interceptor ekleniyor
                 options.AddInterceptors(
-                    sp.GetRequiredService<AuditDomainEventInterceptor>());
+                    sp.GetRequiredService<AuditTrackableInterceptor>(),
+                    sp.GetRequiredService<PublishDomainEventsInterceptor>());
 
                 // Logging
                 options.EnableDetailedErrors();

@@ -29,7 +29,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();  //  Identity için zorunlu
 app.UseAuthorization();
-app.UseAuthorization();
 
 app.MapControllers();
 
