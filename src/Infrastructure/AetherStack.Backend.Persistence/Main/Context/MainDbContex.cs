@@ -1,19 +1,11 @@
 ﻿using AetherStack.Backend.Domain.Identity;
+using AetherStack.Backend.Persistence.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AetherStack.Backend.Persistence.Main.Context
 {
-    public class MainDbContext
-      : IdentityDbContext<
-          User,
-          Role,
-          int,
-          UserClaim,
-          UserRole,
-          UserLogin,
-          RoleClaim,
-          UserToken>
+    public class MainDbContext : IdentityDbContext<User,Role,int,UserClaim,UserRole,UserLogin,RoleClaim,UserToken>
     {
         public MainDbContext(DbContextOptions<MainDbContext> options)
             : base(options)
@@ -26,6 +18,8 @@ namespace AetherStack.Backend.Persistence.Main.Context
 
             builder.ApplyConfigurationsFromAssembly(
                 typeof(MainDbContext).Assembly);
+
+            builder.ApplySoftDeleteQueryFilter();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AetherStack.Backend.Persistence.Main.Context;
+﻿using AetherStack.Backend.Persistence.Interceptors;
+using AetherStack.Backend.Persistence.Main.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,29 +9,37 @@ namespace AetherStack.Backend.Persistence.Main
 {
     public static class DatabaseServiceRegistration
     {
-        public static IServiceCollection AddPostgreSql(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddPostgreSql(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("PostgreSQL");
+            var connectionString =
+                configuration.GetConnectionString("PostgreSQL");
 
-            services.AddDbContext<MainDbContext>(options =>
+            // Interceptor DI kaydı
+            services.AddScoped<AuditDomainEventInterceptor>();
+
+            services.AddDbContext<MainDbContext>((sp, options) =>
             {
                 options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
-                    // Migration assembly ayrı persistence projesinde olmalı
-                    npgsqlOptions.MigrationsAssembly(typeof(MainDbContext).Assembly.FullName);
+                    npgsqlOptions.MigrationsAssembly(
+                        typeof(MainDbContext).Assembly.FullName);
 
-                    // Production için retry policy
                     npgsqlOptions.EnableRetryOnFailure(
                         maxRetryCount: 5,
                         maxRetryDelay: TimeSpan.FromSeconds(10),
                         errorCodesToAdd: null);
                 });
 
-                // SQL loglama (sadece development için önerilir)
+                // Interceptor ekleniyor
+                options.AddInterceptors(
+                    sp.GetRequiredService<AuditDomainEventInterceptor>());
+
+                // Logging
                 options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging(false);
+
+                //debug
+                options.EnableSensitiveDataLogging();
+
             });
 
             return services;

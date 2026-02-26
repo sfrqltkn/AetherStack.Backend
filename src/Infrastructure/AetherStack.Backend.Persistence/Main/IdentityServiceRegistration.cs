@@ -30,7 +30,7 @@ namespace AetherStack.Backend.Persistence.Main
                     options.Lockout.AllowedForNewUsers = true;
 
                     //  SIGNIN
-                    options.SignIn.RequireConfirmedEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true; // prod'da true yap
                 })
                 .AddEntityFrameworkStores<MainDbContext>()
                 .AddDefaultTokenProviders();
