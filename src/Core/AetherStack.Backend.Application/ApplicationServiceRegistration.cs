@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AetherStack.Backend.Application.Common.Behaviors;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AetherStack.Backend.Application
 {
@@ -12,6 +15,9 @@ namespace AetherStack.Backend.Application
             {
                 cfg.RegisterServicesFromAssembly(assembly);
             });
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddValidatorsFromAssembly(assembly);
 
             return services;
         }

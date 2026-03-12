@@ -16,7 +16,6 @@ namespace AetherStack.Backend.Persistence.Main
 
             // Interceptor DI kaydı
             services.AddScoped<AuditTrackableInterceptor>();
-            services.AddScoped<PublishDomainEventsInterceptor>();
 
             services.AddDbContext<MainDbContext>((sp, options) =>
             {
@@ -33,8 +32,7 @@ namespace AetherStack.Backend.Persistence.Main
 
                 // Interceptor ekleniyor
                 options.AddInterceptors(
-                    sp.GetRequiredService<AuditTrackableInterceptor>(),
-                    sp.GetRequiredService<PublishDomainEventsInterceptor>());
+                    sp.GetRequiredService<AuditTrackableInterceptor>());
 
                 // Logging
                 options.EnableDetailedErrors();
