@@ -5,13 +5,13 @@ namespace AetherStack.Backend.Application.Common.Responses
     public class SuccessDetails
     {
         [JsonPropertyName("type")]
-        public string Type { get; set; } = "https://aetherstack.com/success";
+        public string Type { get; set; } = "https://aetherstack-backend.com/success";
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = "Success";
 
         [JsonPropertyName("status")]
-        public int Status { get; set; } = 200;
+        public int StatusCode { get; set; } = 200;
 
         [JsonPropertyName("detail")]
         public string Detail { get; set; } = "İşlem başarılı.";

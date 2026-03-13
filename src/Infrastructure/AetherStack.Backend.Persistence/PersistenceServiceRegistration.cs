@@ -1,7 +1,7 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
-using AetherStack.Backend.Persistence.Interceptors;
 using AetherStack.Backend.Persistence.Main;
 using AetherStack.Backend.Persistence.Main.Repositories;
+using AetherStack.Backend.Persistence.Main.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
