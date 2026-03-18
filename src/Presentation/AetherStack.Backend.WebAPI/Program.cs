@@ -59,7 +59,7 @@ app.MapScalarApiReference(options =>
            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 
-// Controllers
+// Controller endpoints
 app.MapControllers();
 
 app.Run();

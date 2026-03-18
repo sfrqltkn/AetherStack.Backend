@@ -1,22 +1,22 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
 using AetherStack.Backend.Domain.Identity;
-using Microsoft.AspNetCore.Identity;
+using AetherStack.Backend.Persistence.Main.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace AetherStack.Backend.Persistence.Main.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserManager<User> _userManager;
+        private readonly MainDbContext _context;
 
-        public UserRepository(UserManager<User> userManager)
+        public UserRepository(MainDbContext context)
         {
-            _userManager = userManager;
+            _context = context;
         }
 
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
         {
-            return await _userManager.Users
+            return await _context.Users
                                      .AsNoTracking()
                                      .ToListAsync(cancellationToken);
         }
