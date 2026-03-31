@@ -1,6 +1,6 @@
-﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Application.Common.Responses;
-using AetherStack.Backend.Application.DTOs;
+using AetherStack.Backend.Application.DTOs.Roles;
 using AetherStack.Backend.Application.SystemMessages;
 using MediatR;
 

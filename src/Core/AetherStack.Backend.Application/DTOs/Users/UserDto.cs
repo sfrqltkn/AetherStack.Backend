@@ -1,4 +1,4 @@
-﻿namespace AetherStack.Backend.Application.DTOs
+﻿namespace AetherStack.Backend.Application.DTOs.Users
 {
     public class UserDto
     {

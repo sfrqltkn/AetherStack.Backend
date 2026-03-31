@@ -1,6 +1,8 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Persistence.Main;
 using AetherStack.Backend.Persistence.Main.Repositories;
+using AetherStack.Backend.Persistence.Main.Repositories.Identity;
 using AetherStack.Backend.Persistence.Main.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,7 @@ namespace AetherStack.Backend.Persistence
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserRolesRepository, UserRolesRepository>();
 
             return services;
         }

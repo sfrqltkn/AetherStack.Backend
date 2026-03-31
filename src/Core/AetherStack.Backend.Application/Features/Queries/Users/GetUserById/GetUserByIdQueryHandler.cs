@@ -1,7 +1,7 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Infrastructure;
 using AetherStack.Backend.Application.Common.Exceptions;
 using AetherStack.Backend.Application.Common.Responses;
-using AetherStack.Backend.Application.DTOs;
+using AetherStack.Backend.Application.DTOs.Users;
 using AetherStack.Backend.Application.SystemMessages;
 using MediatR;
 

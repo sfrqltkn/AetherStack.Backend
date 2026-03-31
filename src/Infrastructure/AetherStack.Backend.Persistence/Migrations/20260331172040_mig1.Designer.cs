@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AetherStack.Backend.Persistence.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20260313171400_mig1")]
+    [Migration("20260331172040_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -279,17 +279,21 @@ namespace AetherStack.Backend.Persistence.Migrations
 
             modelBuilder.Entity("AetherStack.Backend.Domain.Identity.UserRole", b =>
                 {
-                    b.HasOne("AetherStack.Backend.Domain.Identity.Role", null)
-                        .WithMany()
+                    b.HasOne("AetherStack.Backend.Domain.Identity.Role", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AetherStack.Backend.Domain.Identity.User", null)
-                        .WithMany()
+                    b.HasOne("AetherStack.Backend.Domain.Identity.User", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AetherStack.Backend.Domain.Identity.UserToken", b =>
@@ -299,6 +303,16 @@ namespace AetherStack.Backend.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AetherStack.Backend.Domain.Identity.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("AetherStack.Backend.Domain.Identity.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

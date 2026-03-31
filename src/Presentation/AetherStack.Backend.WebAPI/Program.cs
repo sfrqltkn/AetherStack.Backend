@@ -9,10 +9,12 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Serilog Configuration
 builder.Host.AddSerilogConfiguration();
 
-// Add services to the container.
+// Services
 builder.Services.AddControllers();
+
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -20,10 +22,30 @@ builder.Services.AddPresentationServices(builder.Configuration);
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+//
+// MIDDLEWARE PIPELINE
+//
+
+// CorrelationId üretimi (tüm request boyunca kullanýlacak)
+app.UseMiddleware<CorrelationIdMiddleware>();
+
+// HTTP request logging (Serilog)
 app.UseSerilogRequestLogging();
+
+// Global exception handling
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+// HTTPS redirect
+app.UseHttpsRedirection();
+
+// Authentication & Authorization
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 app.MapOpenApi(); // Arka planda OpenAPI JSON dosyasını üretir
@@ -35,12 +57,7 @@ app.MapScalarApiReference(options =>
            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 
-app.UseMiddleware<GlobalExceptionMiddleware>();
-app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
+// Controllers
 app.MapControllers();
+
 app.Run();

@@ -1,5 +1,5 @@
 ﻿using AetherStack.Backend.Application.Common.Responses;
-using AetherStack.Backend.Application.DTOs;
+using AetherStack.Backend.Application.DTOs.Users;
 using MediatR;
 
 namespace AetherStack.Backend.Application.Features.Queries.Users.GetAllUsers

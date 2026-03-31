@@ -7,5 +7,6 @@ namespace AetherStack.Backend.Domain.Identity
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public bool IsActive { get; set; } = true;
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

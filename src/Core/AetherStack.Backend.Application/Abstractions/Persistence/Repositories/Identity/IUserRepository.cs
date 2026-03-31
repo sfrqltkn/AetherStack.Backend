@@ -1,6 +1,6 @@
 ﻿using AetherStack.Backend.Domain.Identity;
 
-namespace AetherStack.Backend.Application.Abstractions.Persistence.Repositories
+namespace AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity
 {
     public interface IUserRepository
     {

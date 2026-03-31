@@ -1,7 +1,6 @@
-﻿
-using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Application.Common.Responses;
-using AetherStack.Backend.Application.DTOs;
+using AetherStack.Backend.Application.DTOs.Users;
 using AetherStack.Backend.Application.SystemMessages;
 using MediatR;
 
@@ -26,7 +25,8 @@ namespace AetherStack.Backend.Application.Features.Queries.Users.GetAllUsers
                 Email = u.Email!,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                IsActive = u.IsActive
+                IsActive = u.IsActive,
+                Roles = u.UserRoles.Select(ur => ur.Role.Name!).ToList()
             }).ToList();
 
             return ResultResponse.Success(userDtos, Response.Common.OperationSuccess);

@@ -1,4 +1,4 @@
-﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Domain.Identity;
 using AetherStack.Backend.Persistence.Main.Context;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +17,8 @@ namespace AetherStack.Backend.Persistence.Main.Repositories
         public async Task<IList<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Users
-                                     .AsNoTracking()
-                                     .ToListAsync(cancellationToken);
+                   .AsNoTracking()
+                   .ToListAsync(cancellationToken);
         }
     }
 }
