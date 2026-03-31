@@ -24,6 +24,9 @@ namespace AetherStack.Backend.Persistence
             // Unit Of Work
             services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
             return services;
         }
     }

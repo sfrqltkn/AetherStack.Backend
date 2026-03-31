@@ -11,6 +11,7 @@ namespace AetherStack.Backend.Application.Abstractions.Infrastructure
         Task<User?> FindByNameAsync(string userName);
         Task<IList<string>> GetRolesAsync(User user);
         Task<IList<Claim>> GetClaimsAsync(User user);
+        Task<IList<User>> GetUsersInRoleAsync(string roleName);
         Task<bool> IsInRoleAsync(User user, string roleName);
         Task<bool> IsLockedOutAsync(User user);
 

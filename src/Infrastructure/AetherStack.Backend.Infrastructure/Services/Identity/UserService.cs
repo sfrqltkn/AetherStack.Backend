@@ -3,7 +3,7 @@ using AetherStack.Backend.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace AetherStack.Backend.Infrastructure.Services
+namespace AetherStack.Backend.Infrastructure.Services.Identity
 {
     public class UserService : IUserService
     {
@@ -37,6 +37,10 @@ namespace AetherStack.Backend.Infrastructure.Services
         public async Task<IList<Claim>> GetClaimsAsync(User user)
         {
             return await _userManager.GetClaimsAsync(user);
+        }
+        public async Task<IList<User>> GetUsersInRoleAsync(string roleName)
+        {
+            return await _userManager.GetUsersInRoleAsync(roleName);
         }
 
         public async Task<bool> IsInRoleAsync(User user, string roleName)

@@ -9,12 +9,10 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog Configuration
 builder.Host.AddSerilogConfiguration();
 
-// Services
+// Add services to the container.
 builder.Services.AddControllers();
-
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
@@ -22,44 +20,27 @@ builder.Services.AddPresentationServices(builder.Configuration);
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
-
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
-//
-// MIDDLEWARE PIPELINE
-//
-
-// CorrelationId üretimi (tüm request boyunca kullanýlacak)
-app.UseMiddleware<CorrelationIdMiddleware>();
-
-// HTTP request logging (Serilog)
 app.UseSerilogRequestLogging();
 
-// Global exception handling
-app.UseMiddleware<GlobalExceptionMiddleware>();
+// Configure the HTTP request pipeline.
+app.MapOpenApi(); // Arka planda OpenAPI JSON dosyasını üretir
 
-// HTTPS redirect
-app.UseHttpsRedirection();
-
-// Authentication & Authorization
-app.UseAuthentication();
-app.UseAuthorization();
-
-
-// OpenAPI JSON
-app.MapOpenApi();
-
-// Scalar API UI
 app.MapScalarApiReference(options =>
 {
     options.WithTitle("AetherStack Backend API")
-           .WithTheme(ScalarTheme.BluePlanet)
+           .WithTheme(ScalarTheme.BluePlanet) // Purple tema'sı varsayılan olarak açık bırakıldı
            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 
-// Controller endpoints
-app.MapControllers();
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 app.Run();
