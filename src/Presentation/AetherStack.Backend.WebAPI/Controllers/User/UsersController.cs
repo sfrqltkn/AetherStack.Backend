@@ -9,7 +9,7 @@ using AetherStack.Backend.Application.Features.Queries.Users.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AetherStack.Backend.WebAPI.Controllers
+namespace AetherStack.Backend.WebAPI.Controllers.User
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,19 +23,11 @@ namespace AetherStack.Backend.WebAPI.Controllers
             _mediator = mediator;
         }
 
-        // POST: api/users
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-            return StatusCode(response.Status, response);
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var response = await _mediator.Send(new GetAllUsersQueryRequest());
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
@@ -44,26 +36,34 @@ namespace AetherStack.Backend.WebAPI.Controllers
             var request = new GetUserByIdQueryRequest { Id = id };
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] CreateUserCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/update")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateUserCommandRequest request)
         {
             request.Id = id;
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/delete")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var request = new DeleteUserCommandRequest { Id = id };
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
+
 
         [HttpPost("{id}/lock")]
         public async Task<IActionResult> LockUser([FromRoute] int id, [FromBody] LockUserCommandRequest request)
@@ -71,7 +71,7 @@ namespace AetherStack.Backend.WebAPI.Controllers
             request.Id = id;
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
 
         [HttpPost("{id}/unlock")]
@@ -80,7 +80,7 @@ namespace AetherStack.Backend.WebAPI.Controllers
             var request = new UnlockUserCommandRequest { Id = id };
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
 
         [HttpPut("{id}/active-status")]
@@ -89,7 +89,7 @@ namespace AetherStack.Backend.WebAPI.Controllers
             request.Id = id;
             var response = await _mediator.Send(request);
 
-            return StatusCode(response.Status, response);
+            return Ok(response);
         }
     }
 }
