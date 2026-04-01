@@ -1,6 +1,6 @@
 ﻿using AetherStack.Backend.Domain.Common;
 
-namespace AetherStack.Backend.Application.Abstractions.Persistence.Repositories
+namespace AetherStack.Backend.Application.Abstractions.Persistence
 {
     public interface IWriteRepository<TEntity, TId> where TEntity : BaseEntity<TId> where TId : notnull
     {

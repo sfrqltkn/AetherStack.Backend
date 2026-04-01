@@ -1,4 +1,4 @@
-﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+﻿using AetherStack.Backend.Application.Abstractions.Persistence;
 using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Persistence.Main;
 using AetherStack.Backend.Persistence.Main.Repositories;

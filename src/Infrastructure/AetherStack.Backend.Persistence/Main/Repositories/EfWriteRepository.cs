@@ -1,4 +1,4 @@
-﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories;
+﻿using AetherStack.Backend.Application.Abstractions.Persistence;
 using AetherStack.Backend.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 

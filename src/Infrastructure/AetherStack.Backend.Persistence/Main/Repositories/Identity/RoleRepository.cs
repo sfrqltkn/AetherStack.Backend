@@ -1,22 +1,22 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Persistence.Repositories.Identity;
 using AetherStack.Backend.Domain.Identity;
-using Microsoft.AspNetCore.Identity;
+using AetherStack.Backend.Persistence.Main.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace AetherStack.Backend.Persistence.Main.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
-        private readonly RoleManager<Role> _roleManager;
+        private readonly MainDbContext _context;
 
-        public RoleRepository(RoleManager<Role> roleManager)
+        public RoleRepository(MainDbContext context)
         {
-            _roleManager = roleManager;
+            _context = context;
         }
 
         public async Task<IList<Role>> GetAllRolesAsync(CancellationToken cancellationToken = default)
         {
-            return await _roleManager.Roles
+            return await _context.Roles
                   .AsNoTracking()
                   .ToListAsync(cancellationToken);
         }

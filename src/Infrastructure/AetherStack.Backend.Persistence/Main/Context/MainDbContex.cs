@@ -11,6 +11,7 @@ namespace AetherStack.Backend.Persistence.Main.Context
             : base(options)
         {
         }
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
