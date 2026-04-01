@@ -1,6 +1,8 @@
 ﻿using AetherStack.Backend.Application.Abstractions.Infrastructure;
+using AetherStack.Backend.Application.Abstractions.Infrastructure.Services.Mail;
 using AetherStack.Backend.Application.Abstractions.Infrastructure.Token;
 using AetherStack.Backend.Infrastructure.Services.Identity;
+using AetherStack.Backend.Infrastructure.Services.Mail;
 using AetherStack.Backend.Infrastructure.Services.Token;
 using AetherStack.Backend.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,11 @@ namespace AetherStack.Backend.Infrastructure
             //appsettings.json içindeki JwtSettings bölümünü JwtSettings sınıfına bağlar
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
             services.AddScoped<ITokenService, TokenService>();
+
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+            services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IMailSender, SmtpMailSender>();
+            services.AddScoped<ITemplateService, TemplateService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();

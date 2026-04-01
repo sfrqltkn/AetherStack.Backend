@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AetherStack.Backend.Persistence.Main.Configurations.Identity
+namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurations.Identity
 {
     public class UserLoginConfiguration : IEntityTypeConfiguration<UserLogin>
     {
