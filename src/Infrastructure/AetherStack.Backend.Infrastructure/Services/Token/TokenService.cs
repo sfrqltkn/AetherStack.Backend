@@ -30,6 +30,7 @@ namespace AetherStack.Backend.Infrastructure.Services.Token
 
         public async Task<AccessTokenResult> GenerateAccessTokenAsync(User user, IEnumerable<Claim>? extraClaims = null)
         {
+            //userId, roles,mail vs..
             var claims = await GetAllUserClaimsAsync(user, extraClaims);
 
             var now = DateTime.UtcNow;
@@ -234,6 +235,7 @@ namespace AetherStack.Backend.Infrastructure.Services.Token
 
         private EncryptingCredentials GetEncryptingCredentials()
         {
+            //JWT -> JWE (JSON Web Encryption) = AES-256 algoritmasıyla şifrelenmiş JWT
             var encryptionKey = new SymmetricSecurityKey(Convert.FromBase64String(_jwtSettings.EncryptionKey));
             return new EncryptingCredentials(
                 encryptionKey,
@@ -244,8 +246,8 @@ namespace AetherStack.Backend.Infrastructure.Services.Token
 
         private static string GenerateRefreshToken()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64))
-               .Replace("+", "-").Replace("/", "_").Replace("=", "");
+            byte[] randomBytes = RandomNumberGenerator.GetBytes(64);
+            return Microsoft.AspNetCore.WebUtilities.WebEncoders.Base64UrlEncode(randomBytes);
         }
 
     }

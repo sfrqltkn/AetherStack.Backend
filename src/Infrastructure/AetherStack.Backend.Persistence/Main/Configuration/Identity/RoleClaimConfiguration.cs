@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurations.Identity
+namespace AetherStack.Backend.Persistence.Main.Configuration.Identity
 {
     public class RoleClaimConfiguration : IEntityTypeConfiguration<RoleClaim>
     {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurations.Identity
+namespace AetherStack.Backend.Persistence.Main.Configuration.Identity
 {
     public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     {
@@ -18,7 +18,7 @@ namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurati
                 .IsRequired();
 
             builder.HasOne(ur => ur.User)
-                .WithMany(u => u.UserRoles) 
+                .WithMany(u => u.UserRoles)
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
         }

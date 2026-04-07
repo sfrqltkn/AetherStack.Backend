@@ -14,6 +14,7 @@ namespace AetherStack.Backend.Application.Abstractions.Infrastructure
         Task<IList<User>> GetUsersInRoleAsync(string roleName);
         Task<bool> IsInRoleAsync(User user, string roleName);
         Task<bool> IsLockedOutAsync(User user);
+        Task<SignInResult> CheckPasswordSignInAsync(User user, string password, bool lockoutOnFailure);
 
         Task<IdentityResult> CreateAsync(User user, string password);
         Task<IdentityResult> UpdateAsync(User user);

@@ -8,10 +8,12 @@ namespace AetherStack.Backend.Infrastructure.Services.Identity
     public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public UserService(UserManager<User> userManager)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<User?> FindByIdAsync(string id)
@@ -51,6 +53,10 @@ namespace AetherStack.Backend.Infrastructure.Services.Identity
         public async Task<bool> IsLockedOutAsync(User user)
         {
             return await _userManager.IsLockedOutAsync(user);
+        }
+        public async Task<SignInResult> CheckPasswordSignInAsync(User user, string password, bool lockoutOnFailure)
+        {
+            return await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure);
         }
 
         public async Task<IdentityResult> CreateAsync(User user, string password)

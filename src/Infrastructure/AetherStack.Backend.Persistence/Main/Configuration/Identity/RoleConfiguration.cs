@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurations.Identity
+namespace AetherStack.Backend.Persistence.Main.Configuration.Identity
 {
     public class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
@@ -11,14 +11,13 @@ namespace AetherStack.Backend.Persistence.Main.Repositories.Identity.Configurati
             builder.ToTable("Roles");
 
             builder.Property(x => x.Name)
-                .HasMaxLength(50);
+                .HasMaxLength(256);
 
             builder.Property(x => x.NormalizedName)
-                .HasMaxLength(50);
+                .HasMaxLength(256);
 
             builder.HasIndex(r => r.NormalizedName)
                 .IsUnique();
-
         }
     }
 }
